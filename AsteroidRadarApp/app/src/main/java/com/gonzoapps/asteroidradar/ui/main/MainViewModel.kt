@@ -3,6 +3,7 @@ package com.gonzoapps.asteroidradar.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gonzoapps.asteroidradar.BuildConfig
 import com.gonzoapps.asteroidradar.network.NasaApi
 import com.gonzoapps.asteroidradar.network.NetworkAsteroid
 import com.gonzoapps.asteroidradar.network.parseAsteroidsJsonResult
@@ -33,7 +34,7 @@ class MainViewModel : ViewModel() {
                 val response = NasaApi.retrofitService.getNEoWsListAsync(
                     startDateFormatted,
                     endDateFormatted,
-                    "dasgkjadshflka"
+                        BuildConfig.NASA_API_KEY
                 )
 
                 val list = parseAsteroidsJsonResult(JSONObject(response))
