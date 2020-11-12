@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.util
+package com.gonzoapps.asteroidradar.util
 
 object Constants {
     const val API_QUERY_DATE_FORMAT = "YYYY-MM-dd"
