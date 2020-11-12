@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                val response = NasaApi.retrofitService.getNEoWsListAsync(
+                val response = NasaApi.retrofitNeoService.getNEoWsListAsync(
                     startDateFormatted,
                     endDateFormatted,
                         BuildConfig.NASA_API_KEY
@@ -39,6 +39,10 @@ class MainViewModel : ViewModel() {
 
                 val list = parseAsteroidsJsonResult(JSONObject(response))
                 asteroids.value = list
+                Timber.d("asteroids ${asteroids.value!!.size.toString()}")
+
+                val apod = NasaApi.retrofitService.getPictureOfTheDayAsync(
+                        startDateFormatted, BuildConfig.NASA_API_KEY)
 
             } catch (e: Exception) {
                 Timber.e("error ${e.toString()}")

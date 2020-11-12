@@ -7,6 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -22,8 +23,15 @@ interface NasaApiService {
         @Query("api_key")
         key: String,
     ) : String
-}
 
+    @GET("planetary/apod")
+    suspend fun getPictureOfTheDayAsync(
+        @Query("date")
+        date: String,
+        @Query("api_key")
+        key: String,
+    ) : NetworkPictureOfDay
+}
 
 
 private val moshi = Moshi.Builder()
@@ -42,14 +50,22 @@ object NasaApi {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(ScalarsConverterFactory.create())
+
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
-        .build()
 
 
-    val retrofitService: NasaApiService by lazy {
-        retrofit.create(NasaApiService::class.java)
+
+    val retrofitNeoService: NasaApiService by lazy {
+        retrofit
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build().create(NasaApiService::class.java)
+    }
+
+    val retrofitService:NasaApiService by lazy {
+        retrofit
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build().create(NasaApiService::class.java)
     }
 }
 
