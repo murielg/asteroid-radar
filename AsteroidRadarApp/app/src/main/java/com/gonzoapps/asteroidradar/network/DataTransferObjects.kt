@@ -1,5 +1,7 @@
 package com.gonzoapps.asteroidradar.network
 
+import com.gonzoapps.asteroidradar.database.DatabaseAsteroid
+import com.gonzoapps.asteroidradar.domain.Asteroid
 import com.squareup.moshi.Json
 
 data class NetworkAsteroid(
@@ -15,3 +17,33 @@ data class NetworkPictureOfDay(
     val title: String,
     val url: String
 )
+
+fun List<NetworkAsteroid>.asDomainModel(): List<Asteroid> {
+    return map {
+        Asteroid (
+            id = it.id,
+            codename = it.codename,
+            closeApproachDate = it.closeApproachDate,
+            absoluteMagnitude = it.absoluteMagnitude,
+            estimatedDiameter = it.estimatedDiameter,
+            relativeVelocity = it.relativeVelocity,
+            distanceFromEarth = it.distanceFromEarth,
+            isPotentiallyHazardous = it.isPotentiallyHazardous,
+        )
+    }
+}
+
+fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid> {
+    return map {
+        DatabaseAsteroid (
+            id = it.id,
+            codename = it.codename,
+            closeApproachDate = it.closeApproachDate,
+            absoluteMagnitude = it.absoluteMagnitude,
+            estimatedDiameter = it.estimatedDiameter,
+            relativeVelocity = it.relativeVelocity,
+            distanceFromEarth = it.distanceFromEarth,
+            isPotentiallyHazardous = it.isPotentiallyHazardous,
+        )
+    }.toTypedArray()
+}
