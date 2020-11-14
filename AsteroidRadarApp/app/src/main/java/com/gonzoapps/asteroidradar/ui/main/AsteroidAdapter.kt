@@ -20,6 +20,7 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) : ListAdapter
         holder.itemView.setOnClickListener{
             clickListener.onClick(asteroid)
         }
+        holder.bind(asteroid)
     }
 
     class AsteroidViewHolder(private var binding: ListAsteroidItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -35,18 +36,19 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) : ListAdapter
             }
         }
     }
-}
 
-class AsteroidDiffCallback : DiffUtil.ItemCallback<Asteroid>() {
-    override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
-        return oldItem === newItem
+
+    class AsteroidDiffCallback : DiffUtil.ItemCallback<Asteroid>() {
+        override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem.id == newItem.id
+        }
     }
 
-    override fun areContentsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
-        return oldItem.id == newItem.id
+    class AsteroidListener(val clickListener: (asteroid: Asteroid) -> Unit) {
+        fun onClick(asteroid: Asteroid) = clickListener(asteroid)
     }
-}
-
-class AsteroidListener(val clickListener: (asteroid: Asteroid) -> Unit) {
-    fun onClick(asteroid: Asteroid) = clickListener(asteroid)
 }

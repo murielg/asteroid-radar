@@ -15,9 +15,7 @@ import timber.log.Timber
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
+        val activity = requireNotNull(this.activity)
         ViewModelProvider(this, MainViewModel.Factory(activity.application)).get(MainViewModel::class.java)
     }
 
@@ -25,17 +23,13 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding: FragmentMainBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_main,
-            container,
-            false)
+        val binding = FragmentMainBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
-        viewModelAdapter  = AsteroidAdapter(AsteroidListener {
+        viewModelAdapter = AsteroidAdapter(AsteroidAdapter.AsteroidListener {
             Timber.i("Clicked on ${it.codename}")
         })
 
@@ -51,8 +45,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.asteroids.observe(viewLifecycleOwner, Observer { asteroids ->
-            asteroids.forEach { Timber.i("${it.codename}") }
+        viewModel.asteroidList.observe(viewLifecycleOwner, Observer { asteroids ->
             asteroids?.let {
                 Timber.i("hello ${asteroids.size}")
                 viewModelAdapter?.submitList(asteroids)

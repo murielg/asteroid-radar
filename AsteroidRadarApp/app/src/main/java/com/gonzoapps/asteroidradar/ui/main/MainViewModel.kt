@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 
 import com.gonzoapps.asteroidradar.BuildConfig
 import com.gonzoapps.asteroidradar.database.AsteroidDatabase
+import com.gonzoapps.asteroidradar.domain.Asteroid
 import com.gonzoapps.asteroidradar.network.NasaApi
 import com.gonzoapps.asteroidradar.network.NetworkAsteroid
 import com.gonzoapps.asteroidradar.network.parseAsteroidsJsonResult
@@ -34,9 +35,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 asteroidRepository.refreshAsteroids()
             }
         }
-    }
 
-    val asteroids = asteroidRepository.asteroids
+    }
+    val asteroidList = asteroidRepository.asteroids
+
 
     private fun getPictureOfTheDay() {
         val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
