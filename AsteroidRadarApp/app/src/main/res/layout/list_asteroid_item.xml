@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="asteroid"
+            type="com.gonzoapps.asteroidradar.domain.Asteroid" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Asteroid Codename"
+            android:text="@{asteroid.codename}"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_orange_light"
+            />
+    </LinearLayout>
+
+</layout>

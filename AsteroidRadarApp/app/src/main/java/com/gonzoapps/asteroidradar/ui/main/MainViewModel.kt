@@ -1,6 +1,9 @@
 package com.gonzoapps.asteroidradar.ui.main
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.*
 
 import com.gonzoapps.asteroidradar.BuildConfig
@@ -19,18 +22,17 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-
-
     private val database = AsteroidDatabase.getInstance(application)
     private val asteroidRepository = AsteroidRepository(database)
 
     init {
-        getAsteroids()
-    }
-
-    private fun getAsteroids() {
-        viewModelScope.launch {
-            asteroidRepository.refreshAsteroids()
+        val cm = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnected == true
+        if (isConnected) {
+            viewModelScope.launch {
+                asteroidRepository.refreshAsteroids()
+            }
         }
     }
 

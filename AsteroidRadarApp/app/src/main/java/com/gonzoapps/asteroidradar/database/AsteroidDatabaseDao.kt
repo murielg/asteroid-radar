@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface AsteroidDatabaseDao {
-    @Query("select * from databaseasteroid ORDER BY close_approach_date DESC")
+    @Query("select * from databaseasteroid ORDER BY close_approach_date ASC")
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
