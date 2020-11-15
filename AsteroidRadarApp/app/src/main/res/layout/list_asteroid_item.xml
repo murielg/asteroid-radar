@@ -7,40 +7,49 @@
             name="asteroid"
             type="com.gonzoapps.asteroidradar.domain.Asteroid" />
     </data>
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:orientation="vertical"
         >
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Asteroid Codename"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@{asteroid.codename}"
-            android:textSize="16sp"
             android:textColor="@android:color/holo_orange_light"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Asteroid Codename"
-            android:text="@{Double.toString(asteroid.distanceFromEarth)}"
             android:textSize="16sp"
-            android:textColor="@android:color/holo_orange_light"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Asteroid Codename" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Asteroid Codename"
+            android:layout_marginTop="16dp"
             android:text="@{asteroid.closeApproachDate}"
-            android:textSize="16sp"
             android:textColor="@android:color/holo_orange_light"
-            />
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:text="2020-10-24" />
+
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            tools:src="@drawable/ic_status_potentially_hazardous"
-            app:statusIcon="@{asteroid.isPotentiallyHazardous}"/>
-    </LinearLayout>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:statusIcon="@{asteroid.isPotentiallyHazardous}"
+            tools:src="@drawable/ic_status_potentially_hazardous" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (isConnected) {
             viewModelScope.launch {
                 asteroidRepository.refreshAsteroids()
-//                asteroidRepository.refreshPictureOfDay()
+                asteroidRepository.refreshPictureOfDay()
             }
         }
 

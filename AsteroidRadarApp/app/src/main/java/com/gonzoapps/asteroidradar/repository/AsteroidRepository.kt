@@ -36,12 +36,12 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
             Timber.i("refreshAsteroids called")
 
             try {
-                val response = NasaApi.retrofitNeoService.getNEoWsListAsync(
+                val response = NasaApi.retrofitService.getNEoWsListAsync(
                     startDateFormatted,
                     endDateFormatted,
                     BuildConfig.NASA_API_KEY
                 )
-                Timber.i("response ${response.body()}")
+
                 if (response.isSuccessful && response.body() != null) {
                     if (isValidJson(response.body()!!)) {
                         val list = parseAsteroidsJsonResult(JSONObject(response.body()!!))

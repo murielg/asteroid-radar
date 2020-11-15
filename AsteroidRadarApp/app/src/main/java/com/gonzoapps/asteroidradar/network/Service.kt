@@ -33,11 +33,9 @@ interface NasaApiService {
     ) : Response<NetworkPictureOfDay>
 }
 
-
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
-
 
 object NasaApi {
 
@@ -50,19 +48,12 @@ object NasaApi {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
 
-
-    val retrofitNeoService: NasaApiService by lazy {
-        retrofit
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .build().create(NasaApiService::class.java)
-    }
-
     val retrofitService:NasaApiService by lazy {
         retrofit
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build().create(NasaApiService::class.java)
     }
