@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gonzoapps.asteroidradar.R
@@ -30,7 +31,9 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModelAdapter = AsteroidAdapter(AsteroidAdapter.AsteroidListener {
-            Timber.i("Clicked on ${it.codename}")
+            if (it != null) {
+                this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+            }
         })
 
         binding.root.findViewById<RecyclerView>(R.id.asteroid_recycler).apply {
