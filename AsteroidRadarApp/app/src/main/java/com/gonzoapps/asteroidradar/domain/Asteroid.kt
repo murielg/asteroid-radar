@@ -14,10 +14,3 @@ data class Asteroid(
     val distanceFromEarth: Double,
     val isPotentiallyHazardous: Boolean
 ) : Parcelable
-
-@Parcelize
-data class PictureOfDay(
-    val mediaType: String,
-    val title: String,
-    val url: String
-) : Parcelable

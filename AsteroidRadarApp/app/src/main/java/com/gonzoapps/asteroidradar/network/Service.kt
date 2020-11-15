@@ -13,7 +13,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface NasaApiService {
     @GET("neo/rest/v1/feed")
     suspend fun getNEoWsListAsync(
@@ -31,7 +30,7 @@ interface NasaApiService {
         date: String,
         @Query("api_key")
         key: String,
-    ) : NetworkPictureOfDay
+    ) : Response<NetworkPictureOfDay>
 }
 
 
@@ -54,7 +53,6 @@ object NasaApi {
 
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
-
 
 
     val retrofitNeoService: NasaApiService by lazy {

@@ -3,7 +3,11 @@ package com.gonzoapps.asteroidradar.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import com.gonzoapps.asteroidradar.domain.Asteroid
+import com.gonzoapps.asteroidradar.domain.PictureOfDay
+import com.gonzoapps.asteroidradar.network.asDatabaseModel
+import java.util.*
 
 @Entity
 data class DatabaseAsteroid(
@@ -43,5 +47,37 @@ fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
 @Entity
 data class DatabasePictureOfDay(
     @PrimaryKey
-    val id: String
+    val id: String = UUID.randomUUID().toString(),
+    @ColumnInfo(name = "url")
+    val url: String,
+    @ColumnInfo(name = "title")
+    val title : String,
+    @ColumnInfo(name = "mediaType")
+    val mediaType: String,
+    @ColumnInfo(name = "contentDescription")
+    val contentDescription: String,
+    @ColumnInfo(name = "dateCreated")
+    val dateCreated : Date = Date()
 )
+
+fun DatabasePictureOfDay.asDomainModel() = PictureOfDay (
+        mediaType = this.mediaType,
+        title = this.title,
+        url = this.url,
+        contentDescription = this.contentDescription,
+)
+
+class TypeConverter {
+    @TypeConverter
+    fun fromDate(date: Date?):Long? {
+        return date?.time
+    }
+
+    @TypeConverter
+    fun toDate(millisSinceEpoch: Long?) : Date? {
+        return millisSinceEpoch?.let {
+            Date(it)
+        }
+    }
+
+}

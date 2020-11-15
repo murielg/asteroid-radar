@@ -13,4 +13,10 @@ interface AsteroidDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg videos: DatabaseAsteroid)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPOD(pictureOfDay: DatabasePictureOfDay)
+
+    @Query("select * from databasepictureofday ORDER BY dateCreated DESC LIMIT 1")
+    fun getPOD() : LiveData<DatabasePictureOfDay>
 }

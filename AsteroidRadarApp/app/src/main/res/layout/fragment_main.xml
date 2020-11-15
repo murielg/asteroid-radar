@@ -7,7 +7,6 @@
         <variable
             name="viewModel"
             type="com.gonzoapps.asteroidradar.ui.main.MainViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                app:pictureOfDayUrl="@{viewModel.pod.url}"
                 app:srcCompat="@drawable/placeholder_picture_of_day"/>
 
             <TextView
