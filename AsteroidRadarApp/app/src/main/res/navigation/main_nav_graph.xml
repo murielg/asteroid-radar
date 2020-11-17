@@ -23,6 +23,11 @@
         <argument
             android:name="selectedAsteroid"
             app:argType="com.gonzoapps.asteroidradar.domain.Asteroid"/>
+        <action
+            android:id="@+id/action_detailFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
 </navigation>

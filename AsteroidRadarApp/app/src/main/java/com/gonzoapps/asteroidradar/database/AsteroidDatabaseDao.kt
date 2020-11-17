@@ -19,4 +19,8 @@ interface AsteroidDatabaseDao {
 
     @Query("select * from databasepictureofday ORDER BY dateCreated DESC LIMIT 1")
     fun getPOD() : LiveData<DatabasePictureOfDay>
+
+    @Query("DELETE FROM databasepictureofday")
+    fun clearAllPictureOfDay()
+
 }
