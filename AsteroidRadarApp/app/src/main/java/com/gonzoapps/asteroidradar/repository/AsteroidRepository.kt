@@ -10,8 +10,8 @@ import com.gonzoapps.asteroidradar.domain.PictureOfDay
 import com.gonzoapps.asteroidradar.network.NasaApi
 import com.gonzoapps.asteroidradar.network.asDatabaseModel
 import com.gonzoapps.asteroidradar.network.parseAsteroidsJsonResult
-import com.gonzoapps.asteroidradar.util.getEndDate
 import com.gonzoapps.asteroidradar.util.getStartDate
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -25,6 +25,10 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
 
     val pod: LiveData<PictureOfDay> = Transformations.map(database.asteroidDao.getPOD()) {
         it?.asDomainModel()
+    }
+
+    val todayAsteroids: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getTodaysAsteroids(getStartDate())) {
+        it.asDomainModel()
     }
 
     suspend fun refreshAsteroids(startDate: String, endDate: String) {

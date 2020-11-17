@@ -29,7 +29,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     }
-    val asteroidList = asteroidRepository.asteroids
+    val asteroidList = asteroidRepository.todayAsteroids
     val pod = asteroidRepository.pod
 
     class Factory(val app: android.app.Application) : ViewModelProvider.Factory {

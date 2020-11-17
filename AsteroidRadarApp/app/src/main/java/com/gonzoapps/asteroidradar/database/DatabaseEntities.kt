@@ -13,6 +13,7 @@ data class DatabaseAsteroid(
     @ColumnInfo(name = "code_name")
     val codename: String,
     @ColumnInfo(name = "close_approach_date")
+    @TypeConverters(DateTypeConverter::class)
     val closeApproachDate: String,
     @ColumnInfo(name = "absolute_magnitude")
     val absoluteMagnitude: Double,
