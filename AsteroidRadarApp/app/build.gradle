@@ -56,8 +56,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
@@ -85,7 +86,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$version_room"
 
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:$version_work"
+    implementation "androidx.work:work-runtime-ktx:$version_work"
     androidTestImplementation "androidx.work:work-testing:$version_work"
 
     // Testing
