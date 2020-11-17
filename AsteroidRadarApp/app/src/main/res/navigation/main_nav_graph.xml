@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.gonzoapps.asteroidradar.ui.main.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="Asteroid Radar"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_showDetail"
             app:destination="@id/detailFragment" />
@@ -17,12 +17,12 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.gonzoapps.asteroidradar.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Asteroid Detail"
         tools:layout="@layout/fragment_detail">
 
         <argument
             android:name="selectedAsteroid"
-            app:argType="com.gonzoapps.asteroidradar.domain.Asteroid"/>
+            app:argType="com.gonzoapps.asteroidradar.domain.Asteroid" />
         <action
             android:id="@+id/action_detailFragment_to_mainFragment"
             app:destination="@id/mainFragment"

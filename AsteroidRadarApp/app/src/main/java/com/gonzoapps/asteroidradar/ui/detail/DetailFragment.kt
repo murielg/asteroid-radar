@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gonzoapps.asteroidradar.R
 import com.gonzoapps.asteroidradar.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
@@ -22,6 +25,11 @@ class DetailFragment : Fragment() {
 
         binding.helpButton.setOnClickListener {
             displayAstronomicalUnitExplanationDialog()
+        }
+
+
+        if (asteroid.codename.isNotEmpty()) {
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = asteroid.codename
         }
 
         return binding.root
