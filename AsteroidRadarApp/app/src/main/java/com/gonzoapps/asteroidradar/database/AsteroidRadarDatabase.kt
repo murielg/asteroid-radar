@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 
 
 @Database(entities = [DatabaseAsteroid::class, DatabasePictureOfDay::class], version = 1)
-@TypeConverters(TypeConverter::class)
+@TypeConverters(DateTypeConverter::class)
 abstract class AsteroidRadarDatabase: RoomDatabase() {
     abstract val asteroidDao: AsteroidDatabaseDao
 

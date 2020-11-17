@@ -15,7 +15,7 @@ data class NetworkAsteroid(
 
 fun List<NetworkAsteroid>.asDomainModel(): List<Asteroid> {
     return map {
-        Asteroid (
+        Asteroid(
             id = it.id,
             codename = it.codename,
             closeApproachDate = it.closeApproachDate,
@@ -30,7 +30,7 @@ fun List<NetworkAsteroid>.asDomainModel(): List<Asteroid> {
 
 fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid> {
     return map {
-        DatabaseAsteroid (
+        DatabaseAsteroid(
             id = it.id,
             codename = it.codename,
             closeApproachDate = it.closeApproachDate,
@@ -44,23 +44,23 @@ fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid> {
 }
 
 data class NetworkPictureOfDay(
-        @Json(name = "media_type")
-        val mediaType: String,
-        val title: String,
-        val url: String,
-        val explanation: String
+    @Json(name = "media_type")
+    val mediaType: String,
+    val title: String,
+    val url: String,
+    val explanation: String
 )
 
-fun NetworkPictureOfDay.asDomainModel() = PictureOfDay (
-        url = this.url,
-        title = this.title,
-        mediaType = this.mediaType,
-        contentDescription = "$title : $explanation"
+fun NetworkPictureOfDay.asDomainModel() = PictureOfDay(
+    url = this.url,
+    title = this.title,
+    mediaType = this.mediaType,
+    contentDescription = "$title : $explanation"
 )
 
-fun NetworkPictureOfDay.asDatabaseModel() = DatabasePictureOfDay (
-        url = this.url,
-        title = this.title,
-        mediaType = this.mediaType,
-        contentDescription = "$title : $explanation"
+fun NetworkPictureOfDay.asDatabaseModel() = DatabasePictureOfDay(
+    url = this.url,
+    title = this.title,
+    mediaType = this.mediaType,
+    contentDescription = "$title : $explanation"
 )
