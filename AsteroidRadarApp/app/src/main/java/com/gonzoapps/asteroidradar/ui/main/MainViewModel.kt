@@ -8,6 +8,8 @@ import androidx.lifecycle.*
 
 import com.gonzoapps.asteroidradar.database.AsteroidRadarDatabase
 import com.gonzoapps.asteroidradar.repository.AsteroidRepository
+import com.gonzoapps.asteroidradar.util.getEndDate
+import com.gonzoapps.asteroidradar.util.getStartDate
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,8 +23,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val isConnected: Boolean = activeNetwork?.isConnected == true
         if (isConnected) {
             viewModelScope.launch {
-                asteroidRepository.refreshAsteroids()
-                asteroidRepository.refreshPictureOfDay()
+                asteroidRepository.refreshAsteroids(getStartDate(), getEndDate())
+                asteroidRepository.refreshPictureOfDay(getStartDate())
             }
         }
 

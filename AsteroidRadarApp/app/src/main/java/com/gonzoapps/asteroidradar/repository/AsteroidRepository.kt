@@ -27,10 +27,10 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
         it?.asDomainModel()
     }
 
-    suspend fun refreshAsteroids() {
+    suspend fun refreshAsteroids(startDate: String, endDate: String) {
         withContext(Dispatchers.IO) {
             try {
-                val response = NasaApi.retrofitService.getNEoWsListAsync(getStartDate(), getEndDate(), BuildConfig.NASA_API_KEY)
+                val response = NasaApi.retrofitService.getNEoWsListAsync(startDate, endDate, BuildConfig.NASA_API_KEY)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         val list = parseAsteroidsJsonResult(JSONObject(it))
@@ -47,10 +47,10 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
         }
     }
 
-    suspend fun refreshPictureOfDay() {
+    suspend fun refreshPictureOfDay(startDate: String) {
         withContext(Dispatchers.IO) {
             try {
-                val response = NasaApi.retrofitService.getPictureOfTheDayAsync(getStartDate(), BuildConfig.NASA_API_KEY)
+                val response = NasaApi.retrofitService.getPictureOfTheDayAsync(startDate, BuildConfig.NASA_API_KEY)
                 if (response.isSuccessful) {
                     database.asteroidDao.insertPOD(response.body()!!.asDatabaseModel())
                 } else {
