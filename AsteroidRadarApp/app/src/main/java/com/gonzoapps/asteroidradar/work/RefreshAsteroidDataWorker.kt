@@ -17,6 +17,8 @@ class RefreshAsteroidDataWorker (context: Context, params: WorkerParameters) : C
         Timber.i("try refreshing asteroids from worker")
         return try {
             repository.refreshAsteroids(getStartDate(), getEndDate())
+            repository.cleanPreviousAsteroids()
+            repository.cleanPreviousPictureOfDay()
             Result.success()
         } catch (e: HttpException) {
             Timber.e("refreshing asteroids error: ${e.message()}")

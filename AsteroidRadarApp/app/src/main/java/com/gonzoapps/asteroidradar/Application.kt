@@ -42,6 +42,8 @@ class Application : Application() {
                 .build()
         Timber.d("Periodic Work request for sync is scheduled")
 
+
+
         WorkManager.getInstance().enqueueUniquePeriodicWork(
                 RefreshAsteroidDataWorker.WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,

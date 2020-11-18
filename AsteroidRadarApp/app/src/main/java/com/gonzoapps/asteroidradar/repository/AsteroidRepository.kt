@@ -1,7 +1,6 @@
 package com.gonzoapps.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.gonzoapps.asteroidradar.BuildConfig
 import com.gonzoapps.asteroidradar.database.AsteroidRadarDatabase
@@ -84,9 +83,9 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
         }
     }
 
-    suspend fun cleanupPictureOfDay() {
+    suspend fun cleanPreviousPictureOfDay() {
         withContext(Dispatchers.IO) {
-            database.asteroidDao.clearAllPictureOfDay()
+            database.asteroidDao.clearPictureOfDayBeforeToday(getStartDate())
         }
     }
 

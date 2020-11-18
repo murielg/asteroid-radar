@@ -4,6 +4,7 @@ import androidx.room.*
 import com.gonzoapps.asteroidradar.domain.Asteroid
 import com.gonzoapps.asteroidradar.domain.PictureOfDay
 import com.gonzoapps.asteroidradar.network.asDatabaseModel
+import com.gonzoapps.asteroidradar.util.getStartDate
 import java.util.*
 
 @Entity
@@ -56,7 +57,7 @@ data class DatabasePictureOfDay(
 
     @ColumnInfo(name = "dateCreated")
     @TypeConverters(DateTypeConverter::class)
-    val dateCreated: Date = Date()
+    val dateCreated: String = getStartDate()
 )
 
 fun DatabasePictureOfDay.asDomainModel() = PictureOfDay(
