@@ -45,7 +45,6 @@ fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
 @Entity
 data class DatabasePictureOfDay(
     @PrimaryKey
-    val id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "url")
     val url: String,
     @ColumnInfo(name = "title")
