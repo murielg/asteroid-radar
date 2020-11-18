@@ -1,6 +1,7 @@
 package com.gonzoapps.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.gonzoapps.asteroidradar.BuildConfig
 import com.gonzoapps.asteroidradar.database.AsteroidRadarDatabase
@@ -19,22 +20,36 @@ import timber.log.Timber
 
 class AsteroidRepository(private val database: AsteroidRadarDatabase) {
 
-    val asteroids: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getAsteroids()) {
+    private var databaseAsteroids = database.asteroidDao.getAsteroids()
+
+    val asteroids: LiveData<List<Asteroid>> = Transformations.map(databaseAsteroids) {
         it.asDomainModel()
+    }
+
+    val todayAsteroids: LiveData<List<Asteroid>> = Transformations.map(databaseAsteroids) {
+        it.filter { databaseAsteroid ->
+            databaseAsteroid.closeApproachDate == getStartDate()
+        }.asDomainModel()
+    }
+
+    val weekAsteroids: LiveData<List<Asteroid>> = Transformations.map(databaseAsteroids) {
+        it.filter { databaseAsteroid ->
+            (databaseAsteroid.closeApproachDate > getStartDate())
+        }.asDomainModel()
     }
 
     val pod: LiveData<PictureOfDay> = Transformations.map(database.asteroidDao.getPOD()) {
         it?.asDomainModel()
     }
 
-    val todayAsteroids: LiveData<List<Asteroid>> = Transformations.map(database.asteroidDao.getTodaysAsteroids(getStartDate())) {
-        it.asDomainModel()
-    }
-
     suspend fun refreshAsteroids(startDate: String, endDate: String) {
         withContext(Dispatchers.IO) {
             try {
-                val response = NasaApi.retrofitService.getNEoWsListAsync(startDate, endDate, BuildConfig.NASA_API_KEY)
+                val response = NasaApi.retrofitService.getNEoWsListAsync(
+                    startDate,
+                    endDate,
+                    BuildConfig.NASA_API_KEY
+                )
                 if (response.isSuccessful) {
                     response.body()?.let {
                         val list = parseAsteroidsJsonResult(JSONObject(it))
@@ -54,7 +69,10 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
     suspend fun refreshPictureOfDay(startDate: String) {
         withContext(Dispatchers.IO) {
             try {
-                val response = NasaApi.retrofitService.getPictureOfTheDayAsync(startDate, BuildConfig.NASA_API_KEY)
+                val response = NasaApi.retrofitService.getPictureOfTheDayAsync(
+                    startDate,
+                    BuildConfig.NASA_API_KEY
+                )
                 if (response.isSuccessful) {
                     database.asteroidDao.insertPOD(response.body()!!.asDatabaseModel())
                 } else {
@@ -69,6 +87,12 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
     suspend fun cleanupPictureOfDay() {
         withContext(Dispatchers.IO) {
             database.asteroidDao.clearAllPictureOfDay()
+        }
+    }
+
+    suspend fun cleanPreviousAsteroids() {
+        withContext(Dispatchers.IO) {
+            database.asteroidDao.deleteAsteroidsBeforeToday(getStartDate())
         }
     }
 }

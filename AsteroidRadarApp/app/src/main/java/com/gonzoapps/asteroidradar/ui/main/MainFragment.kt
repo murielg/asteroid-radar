@@ -2,7 +2,6 @@ package com.gonzoapps.asteroidradar.ui.main
 
 import android.os.Bundle
 import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,18 +10,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gonzoapps.asteroidradar.R
 import com.gonzoapps.asteroidradar.databinding.FragmentMainBinding
-import timber.log.Timber
 
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         val activity = requireNotNull(this.activity)
-        ViewModelProvider(this, MainViewModel.Factory(activity.application)).get(MainViewModel::class.java)
+        ViewModelProvider(
+            this,
+            MainViewModel.Factory(activity.application)
+        ).get(MainViewModel::class.java)
     }
 
     private var viewModelAdapter: AsteroidAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = FragmentMainBinding.inflate(inflater)
 
@@ -50,7 +55,6 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.asteroidList.observe(viewLifecycleOwner, Observer { asteroids ->
             asteroids?.let {
-                Timber.i("hello ${asteroids.size}")
                 viewModelAdapter?.submitList(asteroids)
             }
         })
@@ -62,6 +66,13 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.updateFilter(
+            when (item.itemId) {
+                R.id.show_today_menu -> AsteroidListFilter.SHOW_TODAY
+                R.id.show_week_menu -> AsteroidListFilter.SHOW_WEEK
+                else -> AsteroidListFilter.SHOW_ALL
+            }
+        )
         return true
     }
 }
