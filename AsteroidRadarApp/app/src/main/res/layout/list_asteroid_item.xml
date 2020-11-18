@@ -49,6 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2"
             app:statusIcon="@{asteroid.isPotentiallyHazardous}"
+            app:asteroidContentDescription="@{asteroid.isPotentiallyHazardous}"
             tools:src="@drawable/ic_status_potentially_hazardous" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
