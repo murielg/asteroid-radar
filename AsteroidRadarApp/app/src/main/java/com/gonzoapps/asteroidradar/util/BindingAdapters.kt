@@ -1,7 +1,9 @@
 package com.gonzoapps.asteroidradar.util
 
+import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.gonzoapps.asteroidradar.R
 import com.squareup.picasso.Picasso
@@ -14,6 +16,19 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
         imageView.setImageResource(R.drawable.ic_status_normal)
     }
 }
+
+@BindingAdapter("textColor")
+fun bindAsteroidTextColor(textView: TextView, isHazardous: Boolean) {
+    val context = textView.context
+    if (isHazardous) {
+        textView.setTextColor(ContextCompat.getColor(context, R.color.potentially_hazardous))
+        textView.setTypeface(null, Typeface.BOLD);
+
+    } else {
+        textView.setTextColor(ContextCompat.getColor(context, R.color.text_grey))
+    }
+}
+
 
 @BindingAdapter("asteroidStatusImage")
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
