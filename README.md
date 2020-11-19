@@ -22,7 +22,7 @@ This kind of app is one of the most usual in the real world, what you will learn
 
 ### Instructions
 
-- Add the NASA API Key in local.properties `NASA_API_KEY="ADD_KEY_HERE"`
+- Add the NASA API Key `NASA_API_KEY="ADD_KEY_HERE"` in local.properties, in the root of the project.
 
 ## Built With
 
