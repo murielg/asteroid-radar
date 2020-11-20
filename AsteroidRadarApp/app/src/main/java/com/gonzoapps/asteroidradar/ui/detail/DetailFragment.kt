@@ -29,7 +29,7 @@ class DetailFragment : Fragment() {
 
 
         if (asteroid.codename.isNotEmpty()) {
-            (activity as AppCompatActivity?)!!.supportActionBar?.title = asteroid.codename
+            (activity as AppCompatActivity?)?.supportActionBar?.title = asteroid.codename
         }
 
         return binding.root

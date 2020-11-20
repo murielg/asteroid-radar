@@ -73,7 +73,7 @@ class AsteroidRepository(private val database: AsteroidRadarDatabase) {
                     BuildConfig.NASA_API_KEY
                 )
                 if (response.isSuccessful) {
-                    database.asteroidDao.insertPOD(response.body()!!.asDatabaseModel())
+                    response.body()?.asDatabaseModel()?.let { database.asteroidDao.insertPOD(it) }
                 } else {
                     Timber.e(response.errorBody().toString())
                 }
