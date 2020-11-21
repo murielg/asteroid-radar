@@ -9,6 +9,7 @@ AsteroidRadar is an app to view a list of asteroids detected by NASA that pass n
 - Periodic caching and cleaning data in the background using WorkManager
 - Reactive UIs with encapsulated LiveData and Data Binding
 - Retrofit, Moshi and Coroutines
+- Notifications
 
 ### Screenshots
 
