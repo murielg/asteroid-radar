@@ -71,7 +71,9 @@ class Application : Application() {
                 channelId,
                 channelName,
                 NotificationManager.IMPORTANCE_LOW
-            )
+            ).apply {
+                setShowBadge(false)
+            }
 
             notificationChannel.description = "Asteroids"
 
