@@ -20,8 +20,8 @@
     <string name="this_is_nasa_s_picture_of_day_showing_nothing_yet">This is NASA\'s picture of day, showing nothing yet</string>
     <string name="nasa_picture_of_day_content_description_format">NASA\'s picture of day: %s</string>
 
-    <string name="asteroid_feed_notificatoin_channel_id" translatable="false">asteroid_channel</string>
-    <string name="asteroid_feed_notificatoin_channel_name" translatable="false">Asteroid Feed</string>
+    <string name="asteroid_feed_notification_channel_id" translatable="false">asteroid_channel</string>
+    <string name="asteroid_feed_notification_channel_name" translatable="false">Asteroid Feed</string>
     <string name="notification_title" translatable="false">AsteroidRadar</string>
     <string name="notification_text" translatable="false">There are new Asteroids!</string>
 </resources>

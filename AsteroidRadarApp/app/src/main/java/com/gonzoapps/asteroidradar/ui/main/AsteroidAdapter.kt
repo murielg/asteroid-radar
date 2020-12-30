@@ -20,6 +20,7 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) : ListAdapter
         holder.itemView.setOnClickListener{
             clickListener.onClick(asteroid)
         }
+
         holder.bind(asteroid)
     }
 

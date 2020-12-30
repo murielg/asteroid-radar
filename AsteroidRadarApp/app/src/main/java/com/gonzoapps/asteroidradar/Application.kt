@@ -27,8 +27,8 @@ class Application : Application() {
             setupRecurringWorkers()
         }
         createNotificationChannel(
-            getString(R.string.asteroid_feed_notificatoin_channel_id),
-            getString(R.string.asteroid_feed_notificatoin_channel_name)
+            getString(R.string.asteroid_feed_notification_channel_id),
+            getString(R.string.asteroid_feed_notification_channel_name)
         )
     }
 

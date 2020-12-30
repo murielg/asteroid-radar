@@ -15,7 +15,7 @@ interface AsteroidDatabaseDao {
     fun deleteAsteroidsBeforeToday(today: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg videos: DatabaseAsteroid)
+    fun insertAll(vararg asteroids: DatabaseAsteroid)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPOD(pictureOfDay: DatabasePictureOfDay)

@@ -19,14 +19,15 @@ private val FLAGS = 0
  */
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
 
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    val activityIntent = Intent(applicationContext, MainActivity::class.java)
 
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,
-        contentIntent,
+        activityIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
+
     val meteoriteImage = BitmapFactory.decodeResource(
         applicationContext.resources,
         R.drawable.meteorite
@@ -34,7 +35,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
     val notification = NotificationCompat.Builder(
         applicationContext,
-        applicationContext.getString(R.string.asteroid_feed_notificatoin_channel_id)
+        applicationContext.getString(R.string.asteroid_feed_notification_channel_id)
     )
         .setSmallIcon(R.drawable.ic_asteroid)
         .setContentTitle(applicationContext.getString(R.string.notification_title))
